@@ -3,6 +3,7 @@ package com.example.timetable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintHelper;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -264,36 +265,55 @@ public class MainActivity extends AppCompatActivity {
         });
         parentLinearLayout.addView(rowView);
     }
-
+    public int validate(String x,View view){
+        if(x.isEmpty()){
+//                    name.setError("error");
+//                    b1.setBackgroundResource(R.drawable.errorbg);
+            view.setBackgroundResource(R.drawable.errorbg);
+            return 1;
+        }else {
+            view.setBackgroundResource(R.drawable.nrml);
+            return 0;
+        }
+    }
     public void onSubmit(View v) {
-        LinkedList list=new LinkedList();
-        for(int i=0;i<parentLinearLayout.getChildCount();i++){
+//        int vali = 0;
+        LinkedList list = new LinkedList();
+        for (int i = 0; i < parentLinearLayout.getChildCount(); i++) {
             LinkedListi1 List1 = new LinkedListi1();
-            View sub=parentLinearLayout.getChildAt(i);
-            EditText t1=(EditText) sub.findViewById(R.id.Subject);
-            LinearLayout linear=parentLinearLayout.getChildAt(i).findViewById(R.id.slotlayout_list);
-            for(int j=0;j<linear.getChildCount();j++) {
+            View sub = parentLinearLayout.getChildAt(i);
+            EditText t1 = (EditText) sub.findViewById(R.id.Subject);
+//            vali = validate(t1.getText().toString(), t1);
+            LinearLayout linear = parentLinearLayout.getChildAt(i).findViewById(R.id.slotlayout_list);
+            for (int j = 0; j < linear.getChildCount(); j++) {
                 LinkedListi2 List11 = new LinkedListi2();
-                View slot=linear.getChildAt(j);
+                View slot = linear.getChildAt(j);
                 EditText t2 = (EditText) slot.findViewById(R.id.Slot);
-                LinearLayout dayday=slot.findViewById(R.id.dayLayout);
-                for(int k=0;k<dayday.getChildCount();k++){
-                    View timing=dayday.getChildAt(k);
-                    TextView day=(TextView) timing.findViewById(R.id.day);
-                    TextView time=(TextView) timing.findViewById(R.id.time);
+//                vali = validate(t2.getText().toString(), t2);
+                LinearLayout dayday = slot.findViewById(R.id.dayLayout);
+                int k;
+                for (k = 0; k < dayday.getChildCount(); k++) {
+                    View timing = dayday.getChildAt(k);
+                    TextView day = (TextView) timing.findViewById(R.id.day);
+                    TextView time = (TextView) timing.findViewById(R.id.time);
+                    System.out.println(day.getText().toString()+"hihello"+time.getText().toString());
                     List11.add(day.getText().toString(), Integer.parseInt(time.getText().toString()));
                 }
+//                if(k==0){
+//                    Button b1=slot.findViewById(R.id.daytime);
+//                    b1.setBackgroundColor(R.color.black);
+//                }
                 List1.add(t2.getText().toString(), List11.head);
             }
             list.add(t1.getText().toString(), List1.head);
         }
 //        list.printList();
-
-        Intent i = new Intent(MainActivity.this,MainActivity2.class);
-        i.putExtra("Object", list);
-        i.putExtra("no",parentLinearLayout.getChildCount());
+//        if (vali == 0) {
+            Intent i = new Intent(MainActivity.this, MainActivity2.class);
+            i.putExtra("Object", list);
+            i.putExtra("no", parentLinearLayout.getChildCount());
 //        i.putExtra("num", no);
-        startActivity(i);
+            startActivity(i);
+//        }
     }
-
 }
