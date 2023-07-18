@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main3);
         parentLinearLayout=(LinearLayout) findViewById(R.id.layout_list);
 
     }
@@ -276,44 +276,66 @@ public class MainActivity extends AppCompatActivity {
             return 0;
         }
     }
+    @SuppressLint("ResourceAsColor")
     public void onSubmit(View v) {
-//        int vali = 0;
+        int vali = 0;
+        int vali_child=0;
+
         LinkedList list = new LinkedList();
         for (int i = 0; i < parentLinearLayout.getChildCount(); i++) {
             LinkedListi1 List1 = new LinkedListi1();
             View sub = parentLinearLayout.getChildAt(i);
             EditText t1 = (EditText) sub.findViewById(R.id.Subject);
-//            vali = validate(t1.getText().toString(), t1);
+            vali = validate(t1.getText().toString(), t1);
+            if(vali==1)break;
             LinearLayout linear = parentLinearLayout.getChildAt(i).findViewById(R.id.slotlayout_list);
+            if(linear.getChildCount()==0){
+                vali_child=1;
+                break;
+            }
             for (int j = 0; j < linear.getChildCount(); j++) {
                 LinkedListi2 List11 = new LinkedListi2();
                 View slot = linear.getChildAt(j);
                 EditText t2 = (EditText) slot.findViewById(R.id.Slot);
-//                vali = validate(t2.getText().toString(), t2);
+                vali = validate(t2.getText().toString(), t2);
+                if(vali==1)break;
                 LinearLayout dayday = slot.findViewById(R.id.dayLayout);
                 int k;
                 for (k = 0; k < dayday.getChildCount(); k++) {
                     View timing = dayday.getChildAt(k);
                     TextView day = (TextView) timing.findViewById(R.id.day);
                     TextView time = (TextView) timing.findViewById(R.id.time);
-                    System.out.println(day.getText().toString()+"hihello"+time.getText().toString());
+                    System.out.println(day.getText().toString() + "hihello" + time.getText().toString());
                     List11.add(day.getText().toString(), Integer.parseInt(time.getText().toString()));
                 }
-//                if(k==0){
-//                    Button b1=slot.findViewById(R.id.daytime);
-//                    b1.setBackgroundColor(R.color.black);
-//                }
+                Button b1 = slot.findViewById(R.id.daytime);
+                if (k == 0) {
+
+                    b1.setBackgroundColor(R.color.black);
+                    Toast.makeText(this,"Select Timing For Every Slots", Toast.LENGTH_LONG).show();
+//                    break;
+//                    b1.setBackgroundResource(R.drawable.errorbg);
+                }
                 List1.add(t2.getText().toString(), List11.head);
             }
             list.add(t1.getText().toString(), List1.head);
         }
 //        list.printList();
-//        if (vali == 0) {
-            Intent i = new Intent(MainActivity.this, MainActivity2.class);
-            i.putExtra("Object", list);
-            i.putExtra("no", parentLinearLayout.getChildCount());
+        if(parentLinearLayout.getChildCount()>=4) {
+            if (vali_child == 0) {
+                if (vali == 0) {
+                    Intent i = new Intent(MainActivity.this, MainActivity2.class);
+                    i.putExtra("Object", list);
+                    i.putExtra("no", parentLinearLayout.getChildCount());
 //        i.putExtra("num", no);
-            startActivity(i);
-//        }
+                    startActivity(i);
+                } else {
+                    Toast.makeText(this, "Atleast one slot per subject is needed", Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+        else{
+            Toast.makeText(this,"Minimum 4 Subject required", Toast.LENGTH_LONG).show();
+        }
     }
 }

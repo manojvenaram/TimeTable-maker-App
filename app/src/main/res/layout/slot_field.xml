@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:id="@+id/daytime"
-        android:background="@android:drawable/alert_dark_frame" />
+        android:src="@android:drawable/alert_dark_frame" />
 
     <Button
         android:id="@+id/closeSlot"
