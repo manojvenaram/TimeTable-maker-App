@@ -17,6 +17,8 @@ The **Flexible Credit-Based Timetable Maker** is a powerful and customizable too
 - **Export and Sharing:** Export timetables in various formats (PDF, Excel) and share them seamlessly with stakeholders, students, or colleagues.
 
 - **Responsive Design:** Access the application from different devices, including desktops, tablets, and mobile phones, for a convenient and consistent user experience.
+## Requirement:
+ - **Android 5.0**
 
 
 ## Download :
