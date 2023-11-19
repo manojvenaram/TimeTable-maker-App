@@ -20,6 +20,5 @@ The **Flexible Credit-Based Timetable Maker** is a powerful and customizable too
 ## Requirement:
  - **Android 5.0**
 
-
 ## Download :
 https://drive.google.com/file/d/13rdnh18RRA_mnFM9MddpyMPbKg_5jL62/view?usp=drivesdk
